@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 import { IReview } from "../schemas/review.schema";
 
 const reviewSchema = new Schema<IReview>({
-    book: {
+    bookId: {
         type: Schema.Types.ObjectId,
         ref: "Book",
         required: [true, "Please provide a book"]

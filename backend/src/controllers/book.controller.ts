@@ -28,7 +28,7 @@ export const getAllBooks = TryCatch(async (req: Request, res: Response, next: Ne
 });
 
 export const getSingleBook = TryCatch(async (req: Request, res: Response, next: NextFunction) => {
-    const book = await Book.findById(req.params.id);
+    const book = await Book.findById(req.params.bookId);
 
     if(!book) {
         return res.status(404).json({

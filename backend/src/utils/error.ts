@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-class ErrorHandler extends Error{
+export class ErrorHandler extends Error{
     constructor(message:string,public statusCode:number){
         super(message)
         this.statusCode = statusCode
