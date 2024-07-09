@@ -5,11 +5,14 @@ import { userRoutes } from './routes/user.routes';
 import { otpRoutes } from './routes/otp.routes';
 import { bookRoutes } from './routes/book.routes';
 import { reviewRoutes } from './routes/review.routes';
+import { connectDB } from './utils/db';
 
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser());    
+app.use(cookieParser()); 
+
+connectDB();
 
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/otp', otpRoutes);

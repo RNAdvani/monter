@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { TryCatch } from "../utils/catchAsyncErrors";
 import { User } from "../models/user.model";
-import { generateOtp } from "../actions/otp.action";
+import { sendEmail } from "../actions/otp.action";
 import { sendToken } from "../auth/auth";
 import { ExtendedRequest } from "../types";
 import { ErrorHandler } from "../utils/error";
@@ -9,13 +9,19 @@ import { ErrorHandler } from "../utils/error";
 export const registerUser = TryCatch(async (req:Request, res:Response, next:NextFunction) => {
     const { email, password,username } = req.body;
 
-    const user = await User.create({
-        email,
-        password,
-        username
+    let user = await User.findOne({ email
     });
 
-    await generateOtp(email);
+    if(!user) {
+        user = await User.create({
+            email,
+            password,
+            username
+        })
+    }
+    ;
+
+    await sendEmail(email);
 
     await sendToken(user, res, 201);
 });
