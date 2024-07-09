@@ -6,6 +6,7 @@ import { otpRoutes } from './routes/otp.routes';
 import { bookRoutes } from './routes/book.routes';
 import { reviewRoutes } from './routes/review.routes';
 import { connectDB } from './utils/db';
+import bodyParser from 'body-parser';
 
 const app = express();
 

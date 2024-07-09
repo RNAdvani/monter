@@ -1,15 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import { TryCatch } from "../utils/catchAsyncErrors";
 import { Book } from "../models/book.model";
+import { ExtendedRequest } from "../types";
 
-export const addBook = TryCatch(async (req: Request, res: Response, next: NextFunction) => {
+export const addBook = TryCatch(async (req: ExtendedRequest, res: Response, next: NextFunction) => {
     const { title, author, description, genre } = req.body;
 
     const book = await Book.create({
         title,
         author,
         description,
-        genre
+        genre,
+        addedBy: req.user._id
     });
 
     return res.status(201).json({

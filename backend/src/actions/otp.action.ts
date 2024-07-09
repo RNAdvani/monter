@@ -11,8 +11,8 @@ export const sendEmail = async(email: string)=>{
     await resend.emails.send({
         from :"onboarding@resend.dev",
         to: email,
-        subject:"Conform your email",
-        html:`<p>Your otp for book application is ${otp}</p>`
+        subject:"OTP for Bookiophile",
+        html:`<p>Your otp for Bookiophile is ${otp}</p>`
     })
 }
 
@@ -22,8 +22,10 @@ export const generateOtp = async (email: string) => {
     const expiresAt = new Date();
     expiresAt.setMinutes(expiresAt.getMinutes() + 10);
 
-    if(await Otp.findOne({ email })) {
-        await Otp.updateOne({ email }, { otp, expiresAt });
+    const existingOtp = await Otp.findOne({ email })
+
+    if(existingOtp) {
+        await existingOtp.deleteOne();
     }
 
     await Otp.create({

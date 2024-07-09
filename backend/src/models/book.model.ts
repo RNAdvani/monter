@@ -17,6 +17,11 @@ const bookSchema = new Schema<IBook>({
     genre: {
         type: String,
         required: [true, "Please provide a genre"]
+    },
+    addedBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     }
 });
 
