@@ -6,12 +6,22 @@ import { otpRoutes } from './routes/otp.routes';
 import { bookRoutes } from './routes/book.routes';
 import { reviewRoutes } from './routes/review.routes';
 import { connectDB } from './utils/db';
-import bodyParser from 'body-parser';
+import cors from 'cors';
+import morgan from 'morgan';
 
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser()); 
+app.use(cookieParser());
+
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    credentials: true,
+    optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
+app.use(morgan('dev'));
 
 connectDB();
 
