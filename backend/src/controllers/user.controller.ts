@@ -77,3 +77,14 @@ export const getUserProfile = TryCatch(async (req:ExtendedRequest, res:Response,
     });
 
 });
+
+export const logout = TryCatch(async (req:ExtendedRequest, res:Response, next:NextFunction) => {
+
+    return res.status(200).cookie("OTP", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    }).json({
+        success: true,
+        message: "Logged out successfully"
+    });
+});
